@@ -400,6 +400,7 @@ func (s3 *S3) query(req *request, resp interface{}) error {
 	} else {
 		hresp.Body.Close()
 	}
+	return nil
 }
 
 // prepare sets up req to be delivered to S3.
