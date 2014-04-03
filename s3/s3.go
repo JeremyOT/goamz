@@ -398,7 +398,7 @@ func (s3 *S3) query(req *request, resp interface{}) error {
 	if hresp, err := s3.run(req, resp); err != nil {
 		return err
 	} else {
-		hresp.Close()
+		hresp.Body.Close()
 	}
 }
 
