@@ -489,6 +489,7 @@ func (s3 *S3) run(req *request, resp interface{}) (*http.Response, error) {
 		log.Printf("} -> %s\n", dump)
 	}
 	if hresp.StatusCode != 200 && hresp.StatusCode != 204 {
+		hresp.Body.Close()
 		return nil, buildError(hresp)
 	}
 	if resp != nil {
