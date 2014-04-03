@@ -392,11 +392,14 @@ func (req *request) url() (*url.URL, error) {
 // If resp is not nil, the XML data contained in the response
 // body will be unmarshalled on it.
 func (s3 *S3) query(req *request, resp interface{}) error {
-	err := s3.prepare(req)
-	if err == nil {
-		_, err = s3.run(req, resp)
+	if err := s3.prepare(req); err != nil {
+		return err
 	}
-	return err
+	if hresp, err := s3.run(req, resp); if err != nil {
+		return err
+	} else {
+		hresp.Close()
+	}
 }
 
 // prepare sets up req to be delivered to S3.
